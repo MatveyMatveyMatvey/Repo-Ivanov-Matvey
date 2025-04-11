@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио | Креативный разработчик</title>
+    <style>
+        /* Основные стили */
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --dark: #292F36;
+            --light: #F7FFF7;
+            --accent: #FFE66D;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.8;
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        /* Шапка */
+        header {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 3;
+            max-width: 800px;
+        }
+        
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 107, 107, 0.2) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(78, 205, 196, 0.2) 0%, transparent 30%);
+            z-index: 1;
+        }
+        
+        .header-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="none" width="100" height="100"/><path fill="rgba(255,255,255,0.05)" d="M30,10L50,30L70,10L90,30L70,50L90,70L70,90L50,70L30,90L10,70L30,50L10,30L30,10Z"/></svg>');
+            background-size: 60px 60px;
+            opacity: 0.3;
+            z-index: 2;
+        }
+        
+        .avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid var(--accent);
+            object-fit: cover;
+            margin-bottom: 2rem;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+        
+        .avatar:hover {
+            transform: rotateY(15deg) scale(1.05);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+        
+        h1 {
+            margin: 1rem 0;
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tagline {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+        
+        /* Навигация */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo::before {
+            content: "{}";
+            color: var(--secondary);
+            margin-right: 0.5rem;
+            font-weight: 900;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 0.95rem;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+        
+        .nav-links a:hover::before {
+            width: 80%;
+        }
+        
+        /* Основной контент */
+        .container {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+        
+        section {
+            margin-bottom: 6rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        h2 {
+            color: var(--dark);
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 70px;
+            height: 5px;
+            background: var(--primary);
+            border-radius: 5px;
+        }
+        
+        /* Карточки */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-img {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .card:hover .card-img {
+            transform: scale(1.05);
+        }
+        
+        .card-content {
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .card h3 {
+            margin-top: 0;
+            color: var(--dark);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .card p {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+        
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tag {
+            background: rgba(78, 205, 196, 0.1);
+            color: var(--secondary);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(78, 205, 196, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* О себе */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .about-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform-style: preserve-3d;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.8s ease;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 107, 107, 0.2), rgba(78, 205, 196, 0.2));
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .skill-category {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .skill-category:hover {
+            transform: translateY(-5px);
+        }
+        
+        .skill-category h4 {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            font-size: 1.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .skill-category h4::before {
+            content: '';
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .skill-item {
+            margin-bottom: 1.5rem;
+        }
+        
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .skill-bar {
+            height: 10px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 5px;
+            transition: width 1.5s ease;
+            position: relative;
+        }
+        
+        .skill-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                            rgba(255,255,255,0.8) 0%, 
+                            rgba(255,255,255,0) 50%, 
+                            rgba(255,255,255,0.8) 100%);
+            animation: shine 2s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Контакты */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .contact-text h4 {
+            margin-bottom: 0.3rem;
+            color: var(--dark);
+        }
+        
+        .contact-text p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .collaboration {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .collaboration h3 {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            font-size: 1.5rem;
+        }
+        
+        .collaboration ul {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .collaboration li {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .collaboration li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        /* Подвал */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+            margin-top: 6rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        .footer-about h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .footer-about p {
+            opacity: 0.8;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            padding-left: 10px;
+        }
+        
+        .footer-links a::before {
+            content: '>';
+            position: absolute;
+            left: -10px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: var(--primary);
+        }
+        
+        .footer-links a:hover::before {
+            left: 0;
+            opacity: 1;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Анимации */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .about-content, .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                margin-top: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Шапка -->
+    <header>
+        <div class="header-bg"></div>
+        <div class="header-pattern"></div>
+        <div class="header-content">
+            <img src="img/Ya.jpg" alt="Фото студента" class="avatar floating">
+            <h1>Иванов Матвей</h1>
+            <p class="tagline">Креативный разработчик и мультидисциплинарный специалист</p>
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <a href="#contact" class="btn">Связаться</a>
+                <a href="#works" class="btn btn-outline">Проекты</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Навигация -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Портфолио</div>
+            <div class="nav-links">
+                <a href="#about">Обо мне</a>
+                <a href="#skills">Навыки</a>
+                <a href="#works">Проекты</a>
+                <a href="#education">Образование</a>
+                <a href="#contact">Контакты</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Основной контент -->
+    <div class="container">
+        <!-- Обо мне -->
+        <section id="about">
+            <h2>Обо мне</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p><p>Я - многогранный разработчик, обладающий разнообразными навыками в области веб-программирования, графического дизайна и музыкального продюсирования. Меня вдохновляет создание уникальных решений, объединяющих технологии и творчество.</p>
+<p>В настоящее время я работаю над дипломным проектом, связанным с тестированием программного обеспечения, что дает мне возможность погрузиться в практику обеспечения качества и документирования.</p>
+<p>Я открыт для сотрудничества с творческими агентствами, стартапами в сфере технологий и коммерческими организациями, чтобы вместе реализовывать амбициозные проекты и использовать весь потенциал моих умений.</p>
+</p>
+                    <div style="margin-top: 2rem;">
+                        <a href="#works" class="btn">Посмотреть работы</a>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="img/Work.jpg" alt="Рабочий процесс">
+                </div>
+            </div>
+        </section>
+        
+        <!-- Навыки -->
+        <section id="skills">
+            <h2>Навыки</h2>
+            <div class="skills">
+                <div class="skill-category">
+                    <h4>Веб-разработка</h4>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>HTML/CSS</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>JavaScript</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>PHP</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h4>Программирование</h4>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>C#</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>SQL</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>GDScript</span>
+                            <span>70%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h4>Дизайн</h4>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>UI/UX Design</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>After Effects</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Логотипы</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h4>Звук и музыка</h4>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Саунд-дизайн</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Композиция</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>FL Studio</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Работы -->
+        <section id="works">
+            <h2>Мои проекты</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <img src="img/photo.jpg" alt="Веб-проект" class="card-img">
+                    <div class="card-content">
+                        <h3>Корпоративный сайт</h3>
+                        <div class="card-tags">
+                            <span class="tag">HTML/CSS</span>
+                            <span class="tag">PHP</span>
+                            <span class="tag">MySQL</span>
+                        </div>
+                        <p>Разработка современного корпоративного сайта с адаптивным дизайном и системой управления контентом для бизнеса.</p>
+                        <a href="https://career.programstore.ru/" class="btn">Посмотреть проект</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <img src="img/box.jpg" alt="Игровой проект" class="card-img">
+                    <div class="card-content">
+                        <h3>3D Платформер</h3>
+                        <div class="card-tags">
+                            <span class="tag">Godot</span>
+                            <span class="tag">GDScript</span>
+                            <span class="tag">3D</span>
+                        </div>
+                        <p>Разработка 3D платформера с уникальной механикой и полным циклом звукового сопровождения.</p>
+                        <a href="https://github.com/Sp1cyP3pp3r/gmtk2024/tree/main" class="btn">Посмотреть код</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <img src="img/UXUI.png" alt="Дизайн проект" class="card-img">
+                    <div class="card-content">
+                        <h3>UI/UX для приложения</h3>
+                        <div class="card-tags">
+                            <span class="tag">Figma</span>
+                            <span class="tag">Прототипирование</span>
+                            <span class="tag">Дизайн-система</span>
+                        </div>
+                        <p>Создание пользовательского интерфейса и опыта взаимодействия для мобильного приложения.</p>
+                        <a href="#" class="btn">Посмотреть кейс</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <img src="img/Glas.png" alt="Музыкальный проект" class="card-img">
+                    <div class="card-content">
+                        <h3>Саундтрек для игры</h3>
+                        <div class="card-tags">
+                            <span class="tag">FL Studio</span>
+                            <span class="tag">Композиция</span>
+                            <span class="tag">Саунд-дизайн</span>
+                        </div>
+                        <p>Создание атмосферного саундтрека и звуковых эффектов для инди-игры в жанре хоррор.</p>
+                        <a href="https://github.com/Sp1cyP3pp3r/castle-meat-horror-2025/tree/main/soundtrack" class="btn">Послушать</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <img src="img/загрузка.png" alt="Анимация" class="card-img">
+                    <div class="card-content">
+                        <h3>Анимированный логотип</h3>
+                        <div class="card-tags">
+                            <span class="tag">After Effects</span>
+                            <span class="tag">Анимация</span>
+                            <span class="tag">Брендинг</span>
+                        </div>
+                        <p>Создание анимированного логотипа с уникальным звуковым сопровождением для технологического стартапа.</p>
+                        <a href="#" class="btn">Посмотреть анимацию</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <img src="img/rrr1.jpg" alt="Тестирование" class="card-img">
+                    <div class="card-content">
+                        <h3>Тестирование 1С</h3>
+                        <div class="card-tags">
+                            <span class="tag">1С:Документация</span>
+                            <span class="tag">QA</span>
+                            <span class="tag">Тест-кейсы</span>
+                        </div>
+                        <p>Дипломный проект по функциональному тестированию модуля документации в 1С.</p>
+                        <a href="https://github.com/Dikoshi/Portfolio/blob/main/Diplom-%D0%A0%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0%20%D1%82%D0%B5%D1%81%D1%82%D0%BE%D0%B2%D1%8B%D1%85%20%D0%BD%D0%B0%D0%B1%D0%BE%D1%80%D0%BE%D0%B2%20%D0%B8%20%D1%82%D0%B5%D1%81%D1%82%D0%BE%D0%B2%D1%8B%D1%85%20%D1%81%D1%86%D0%B5%D0%BD%D0%B0%D1%80%D0%B8%D0%B5%D0%B2.%20%D0%9E%D0%B2%D1%87%D0%B8%D0%BD%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2%20%D0%9D%D0%B8%D0%BA%D0%B8%D1%82%D0%B0%20%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B5%D0%B2%D0%B8%D1%87%20%D0%98%D0%A1%D0%9F%2043-9.docx" class="btn">Посмотреть работу</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Образование -->
+        <section id="education">
+            <h2>Образование</h2>
+            <div class="card">
+                <div class="card-content">
+                    <h3><h3>Среднее профессиональное образование</h3>
+<p><strong>Технический колледж информационных технологий</strong>, Ижевск</p>
+<p>Специальность: Информационные технологии и программное обеспечение</p>
+<p>2021 - по настоящее время</p>
+
+                    
+                    <h3 style="margin-top: 2rem;">Курсы и сертификаты</h3>
+                    <ul style="list-style: none; margin-top: 1rem;">
+                        <li style="margin-bottom: 1rem; position: relative; padding-left: 1.5rem;">
+                            <strong>Веб-разработка</strong> - HTML, CSS, JavaScript, PHP (2022
+							                            </strong>
+                            <p>Онлайн-курс, который охватывает основы веб-разработки и создание сайтов на HTML и CSS.</p>
+                        </li>
+                        <li style="margin-bottom: 1rem; position: relative; padding-left: 1.5rem;">
+                            <strong>Основы программирования на C#</strong> - (2023)
+                            <p>Курс, посвящённый основам программирования на языке C# и разработке приложений.</p>
+                        </li>
+                        <li style="margin-bottom: 1rem; position: relative; padding-left: 1.5rem;">
+                            <strong>UI/UX Дизайн</strong> - (2023)
+                            <p>Курс, который научил принципам проектирования пользовательских интерфейсов и взаимодействия.</p>
+                        </li>
+                        <li style="margin-bottom: 1rem; position: relative; padding-left: 1.5rem;">
+                            <strong>Звуковое производство</strong> - (2022)
+                            <p>Курс по созданию музыки и звуков для игр.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Контакты -->
+        <section id="contact">
+            <h2>Контакты</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Email</h4>
+                            <p>ivanov.matvey@example.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Телефон</h4>
+                            <p>+7 (123) 456-78-90</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Адрес</h4>
+                            <p>Ижевск, Россия</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="collaboration">
+                    <h3>Сотрудничество</h3>
+                    <p>Я открыт для предложений о сотрудничестве. Если у вас есть интересный проект, пишите, и я с радостью обсудим детали!</p>
+                    <h4>Как мы можем работать вместе:</h4>
+                    <ul>
+                        <li>Разработка веб-приложений</li>
+                        <li>Дизайн пользовательского интерфейса</li>
+                        <li>Проектирование и реализация звукового сопровождения для игр</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+    </div>
+    
+    <!-- Подвал -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>Обо мне</h3>
+                <p>Я креативный разработчик с увлечением разрабатывать уникальные и инновационные проекты, жизнь - это возможность для постоянного роста и обучения.</p>
+                <div class="social-links">
+                    <a href="https://github.com/Sp1cyP3pp3r" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/matvey-ivanov" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://instagram.com/matvey_ivanov" class="social-link"><i class="fab fa-instagram"></i></a>
+                </div>
+                <p class="copyright">&copy; 2025 Матвей Иванов. Все права защищены.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Полезные ссылки</h4>
+                <ul>
+                    <li><a href="#about">Обо мне</a></li>
+                    <li><a href="#skills">Навыки</a></li>
+                    <li><a href="#works">Проекты</a></li>
+                    <li><a href="#education">Образование</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Проверка видимости секций
+        const sections = document.querySelectorAll('section');
+        const observerOptions = {
+            root: null,
+            threshold: 0.1
+        };
+
+        const observerCallback = entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
